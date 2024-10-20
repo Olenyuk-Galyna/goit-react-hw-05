@@ -1,0 +1,9 @@
+.input {
+  border: 1px solid gray;
+  width: 160px;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.btn {
+  border: 1px solid gray;
+}
