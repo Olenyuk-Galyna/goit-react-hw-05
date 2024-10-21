@@ -1,16 +1,33 @@
-import React, { useEffect } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import style from "./MoviesPage.module.css"
+import React, { useEffect, useState } from "react";
+import css from "./MoviesPage.module.css";
+import { useSearchParams } from "react-router-dom";
+import { searchMovies } from "../api/api";
+import MovieList from "../components/MovieList/MovieList";
 
 export const MoviesPage = () => {
-  const handleSubmit = (value) => {
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const value = e.target.elements.search.value;
     setSearchParams({ query: value });
   };
- 
-  const { movieId } = useParams();
+
+  const query = searchParams.get("query");
+
   useEffect(() => {
-    if (!movieId) return;
-  }, [movieId]);
+    if (!query) return;
+    const getData = async () => {
+      try {
+        const data = await searchMovies(query);
+        console.log(data);
+        setMovies(data.results);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getData();
+  }, [query]);
 
   return (
     <div>
@@ -20,7 +37,7 @@ export const MoviesPage = () => {
           Search
         </button>
       </form>
-      <Outlet />
+      <MovieList movies={movies} />
     </div>
   );
 };

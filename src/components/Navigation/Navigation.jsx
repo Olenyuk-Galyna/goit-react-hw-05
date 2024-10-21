@@ -1,5 +1,7 @@
 import React from "react";
 import clsx from "clsx";
+import css from "./Navigation.module.css";
+import { NavLink } from "react-router-dom";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
@@ -8,18 +10,14 @@ const buildLinkClass = ({ isActive }) => {
 const Navigation = () => {
   return (
     <div>
-      <NavLink to="/" className={buildLinkClass}>
-        HomePage
-      </NavLink>
-      <NavLink to="/movies" className={buildLinkClass}>
-        MoviesPage
-      </NavLink>
-      <NavLink to="/movies/:movieId" className={buildLinkClass}>
-        MovieDetailsPage
-      </NavLink>
-      <NavLink to="link" className={buildLinkClass}>
-        NotFoundPage
-      </NavLink>
+      <nav className={css.nav}>
+        <NavLink to="/" className={buildLinkClass}>
+          HomePage
+        </NavLink>
+        <NavLink to="/movies" className={buildLinkClass}>
+          MoviesPage
+        </NavLink>
+      </nav>
     </div>
   );
 };

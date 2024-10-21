@@ -1,12 +1,18 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
-const MovieList = () => {
+const MovieList = ({ movies }) => {
+  const location = useLocation();
   return (
-    <div>
-      Go bac
-      <Outlet />
-    </div>
+    <ul>
+      {movies.map((movie) => (
+        <li key={movie.id}>
+          <Link state={location} to={`/movies/${movie.id}`}>
+            {movie.original_title}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 };
 
